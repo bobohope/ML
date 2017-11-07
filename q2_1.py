@@ -97,7 +97,15 @@ def classification_accuracy(knn, k, eval_data, eval_labels):
     Evaluate the classification accuracy of knn on the given 'eval_data'
     using the labels
     '''
-    pass
+    good=1
+    for i in range(len(eval_data)):
+        predicted_label=knn.query_knn(eval_data[i],k)
+        if predicted_label==eval_labels[i]:
+            good+=1
+        print(good)
+    accuracy=good/np.shape(eval_labels)[0]
+    print (accuracy)
+    return accuracy
 
 def main():
     train_data, train_labels, test_data, test_labels = data.load_all_data('data')
@@ -108,6 +116,7 @@ def main():
     # Example usage:
     #predicted_label = knn.query_knn(test_data[10], 2)
     #print(predicted_label)
-    print(cross_validation(knn, k_range=np.arange(1,16)))
+    #print(cross_validation(knn, k_range=np.arange(1,16)))
+    classification_accuracy(knn,3,test_data,test_labels)
 if __name__ == '__main__':
     main()
